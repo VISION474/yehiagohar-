@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yehia Gohar — Bilingual Ghostwriter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #161616;
+      --border: #222;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59,130,246,0.18);
+      --text: #f0f0f0;
+      --muted: #888;
+      --white: #fff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Sora', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 6%;
+      background: rgba(13,13,13,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-weight: 800; font-size: 1.1rem; letter-spacing: -0.5px;
+      color: var(--white); text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.9rem;
+      font-weight: 400; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--accent); color: var(--white) !important;
+      padding: 0.45rem 1.2rem; border-radius: 6px; font-weight: 600 !important;
+    }
+    .nav-cta:hover { background: #2563eb; color: var(--white) !important; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 8rem 6% 5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; top: -200px; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(59,130,246,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.4);
+      color: var(--accent); font-size: 0.8rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 0.35rem 1rem; border-radius: 999px; margin-bottom: 1.8rem;
+    }
+    h1 {
+      font-size: clamp(2.8rem, 8vw, 5.5rem);
+      font-weight: 800; line-height: 1.08;
+      letter-spacing: -2px; margin-bottom: 1.2rem;
+      background: linear-gradient(135deg, #fff 30%, #aac5ff 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .tagline {
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      color: var(--muted); font-weight: 300; font-style: italic;
+      margin-bottom: 0.8rem;
+    }
+    .subtext { font-size: 1rem; color: #666; margin-bottom: 2.5rem; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent); color: var(--white);
+      padding: 0.85rem 2.2rem; border-radius: 8px;
+      font-weight: 700; font-size: 1rem; text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      box-shadow: 0 0 30px rgba(59,130,246,0.3);
+    }
+    .btn-primary:hover {
+      background: #2563eb; transform: translateY(-2px);
+      box-shadow: 0 8px 40px rgba(59,130,246,0.45);
+    }
+
+    /* ── SECTIONS SHARED ── */
+    section { padding: 6rem 6%; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800; letter-spacing: -1px; line-height: 1.15;
+      margin-bottom: 1.2rem; color: var(--white);
+    }
+    .section-body { max-width: 640px; color: var(--muted); font-size: 1.05rem; }
+
+    /* ── ABOUT ── */
+    #about { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .about-inner { max-width: 760px; margin: 0 auto; text-align: center; }
+    .about-inner .section-title { margin-bottom: 1.6rem; }
+    .about-inner p { color: #aaa; font-size: 1.1rem; line-height: 1.9; }
+
+    /* ── SERVICES ── */
+    #services { background: var(--bg); }
+    .services-header { text-align: center; margin-bottom: 3.5rem; }
+    .services-header .section-body { margin: 0 auto; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem; max-width: 1100px; margin: 0 auto;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 2rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(59,130,246,0.15);
+    }
+    .card-icon { font-size: 1.6rem; margin-bottom: 0.9rem; }
+    .card h3 { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+    .card p { font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── WHY ME ── */
+    #why { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .why-header { text-align: center; margin-bottom: 3.5rem; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem; max-width: 960px; margin: 0 auto;
+    }
+    .why-item { text-align: center; padding: 2rem 1.5rem; }
+    .why-icon {
+      font-size: 2rem; margin-bottom: 1rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 64px; height: 64px; border-radius: 16px;
+      background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.3);
+    }
+    .why-item h3 { font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+    .why-item p { font-size: 0.93rem; color: var(--muted); }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--bg); }
+    .contact-inner { max-width: 640px; margin: 0 auto; }
+    .contact-inner .section-title { margin-bottom: 0.6rem; }
+    .contact-inner .section-body { margin-bottom: 2.5rem; }
+    form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    input, textarea {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text);
+      font-family: 'Sora', sans-serif; font-size: 0.95rem;
+      padding: 0.85rem 1.1rem; width: 100%;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    input::placeholder, textarea::placeholder { color: #555; }
+    input:focus, textarea:focus { border-color: var(--accent); }
+    textarea { min-height: 140px; resize: vertical; }
+    .btn-submit {
+      align-self: flex-start;
+      background: var(--accent); color: var(--white);
+      border: none; border-radius: 8px; cursor: pointer;
+      font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700;
+      padding: 0.85rem 2.2rem;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 20px rgba(59,130,246,0.25);
+    }
+    .btn-submit:hover {
+      background: #2563eb; transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(59,130,246,0.4);
+    }
+    .contact-alt {
+      margin-top: 2rem; padding-top: 2rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem; color: var(--muted);
+    }
+    .contact-alt a { color: var(--accent); text-decoration: none; }
+    .contact-alt a:hover { text-decoration: underline; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      text-align: center; padding: 2rem 6%;
+      color: #555; font-size: 0.85rem;
+    }
+    footer span { color: var(--accent); }
+
+    /* ── FADE-IN ON SCROLL ── */
+    .reveal {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── MOBILE ── */
+    @media (max-width: 640px) {
+      nav { padding: 1rem 5%; }
+      .nav-links { display: none; }
+      section { padding: 4.5rem 5%; }
+      .form-row { grid-template-columns: 1fr; }
+      .btn-submit { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#hero">Yehia<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#services">Services</a></li>
+      <li><a href="#why">Why Me</a></li>
+      <li><a href="#contact" class="nav-cta">Work With Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-badge">Bilingual Ghostwriter — English &amp; Arabic</div>
+    <h1>Yehia Gohar</h1>
+    <p class="tagline">"Your words. Your voice. My work."</p>
+    <p class="subtext">Bilingual ghostwriter — English &amp; Arabic</p>
+    <a href="#contact" class="btn-primary">Work With Me</a>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-inner reveal">
+      <div class="section-label">About</div>
+      <h2 class="section-title">The Pen Behind the Name</h2>
+      <p>
+        I'm Yehia, a ghostwriter who works quietly behind the scenes so you can shine in front.
+        I write blogs, articles, ebooks, scripts, emails, and more — in both English and Arabic.
+        No face, no fuss. Just clean, compelling content that sounds exactly like you.
+      </p>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="services-header reveal">
+      <div class="section-label">Services</div>
+      <h2 class="section-title">What I Write For You</h2>
+      <p class="section-body">Every format, every niche — in English or Arabic. You bring the idea, I bring the words.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal">
+        <div class="card-icon">✍️</div>
+        <h3>Blog Posts &amp; Articles</h3>
+        <p>800–2,000 words. Research-backed, SEO-aware. Content your audience actually reads.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📖</div>
+        <h3>Ebooks &amp; Long-Form Guides</h3>
+        <p>3,000–10,000 words. Polished, well-structured, and ready to publish.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🌐</div>
+        <h3>Website Copywriting</h3>
+        <p>Landing pages, About pages, product copy — words that convert visitors into clients.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">📧</div>
+        <h3>Email Sequences</h3>
+        <p>Nurture campaigns, welcome flows, and sales emails that feel personal and perform.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🎬</div>
+        <h3>YouTube Scripts</h3>
+        <p>Engaging, structured, on-brand. Scripts that keep viewers watching till the end.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon">🌍</div>
+        <h3>Arabic Ghostwriting</h3>
+        <p>Native-quality Arabic content for any format — same voice, same depth, different language.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY ME -->
+  <section id="why">
+    <div class="why-header reveal">
+      <div class="section-label">Why Me</div>
+      <h2 class="section-title">The Difference You'll Feel</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <div class="why-icon">🔒</div>
+        <h3>Full Confidentiality</h3>
+        <p>Ghostwritten means your name, always. No credits, no leaks, no trace.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-icon">🌍</div>
+        <h3>Bilingual Edge</h3>
+        <p>English &amp; Arabic, same quality, both directions. Reach twice the audience.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-icon">⚡</div>
+        <h3>Fast Turnaround</h3>
+        <p>Most projects delivered in 24–72 hours. Speed without sacrificing quality.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="section-label">Contact</div>
+      <h2 class="section-title reveal">Let's Work Together</h2>
+      <p class="section-body reveal">Send me a message and I'll get back to you within 24 hours.</p>
+      <form action="https://formspree.io/f/xpwzgkrb" method="POST" class="reveal">
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Your Name" required />
+          <input type="email" name="email" placeholder="Your Email" required />
+        </div>
+        <textarea name="message" placeholder="Tell me about your project…" required></textarea>
+        <button type="submit" class="btn-submit">Send Message</button>
+      </form>
+      <div class="contact-alt reveal">
+        Prefer email? Reach me directly at
+        <a href="mailto:goharyehia@gmail.com">goharyehia@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 <span>Yehia Gohar</span> — Available for projects worldwide</p>
+  </footer>
+
+  <script>
+    // Fade-in on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Stagger cards
+    document.querySelectorAll('.cards .card, .why-grid .why-item').forEach((el, i) => {
+      el.style.transitionDelay = (i % 3) * 0.1 + 's';
+    });
+  </script>
+</body>
+</html>
